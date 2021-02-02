@@ -177,13 +177,13 @@ public class SimpleTest extends TestBase {
             $("h1").shouldHave(text("Свяжитесь с нами"));
         });
         step("Заполняем форму, поле 'Имя'", () -> {
-            $x("//input[@name='firstname']").val(user.getFirstName());
+            $x("//input[@name='firstname']").val();
         });
         step("Заполняем форму, поле 'Фамилия'", () -> {
-            $x("//input[@name='lastname']").val(user.getLastName());
+            $x("//input[@name='lastname']").val();
         });
         step("Заполняем форму, поле 'Email'", () -> {
-            $x("//input[@name='email']").val(user.getUserEmail());
+            $x("//input[@name='email']").val();
         });
         step("Заполняем форму, поле 'Телефон'", () -> {
             $x("//input[@name='phone']").val("");
@@ -198,12 +198,26 @@ public class SimpleTest extends TestBase {
             $x("//div[@class='actions']/input").click();
         });
         step("Заполняем форму, поле 'Сообщение'", () -> {
-            $("body").shouldHave(text("Нажимая отправить, Вы соглашаетесь принять условия"));
+            $("body").shouldHave(text("Нажимая отправить, Вы соглашаетесь принять xnjsdw"));
         });
 
         step("Capcha", () -> {
         });
     }
 
+    @Test
+    @DisplayName("Проверка перехода 'Сайт'")
+    @Feature("Regression")
+    @Story("Пользователь должен иметь возможность перехода для заказа")
+    @Owner("Telepnev")
+    public void checkingTheLinkSiteNegativeTest() {
+        step("Открываем главную страницу", ()
+                -> open("https://www.performance-lab.ru/"));
+        step("Кликаем на 'Сайт button'", () -> $("#site_btn").click());
+        step("Проверяем корректность перехода", () -> {
+            String urlTitle = switchTo().window(1).getCurrentUrl();
+            assertEquals("https://qa.city000/", urlTitle);
+        });
 
+    }
 }
